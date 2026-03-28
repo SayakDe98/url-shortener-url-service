@@ -39,7 +39,7 @@ func main() {
 
 	// ---- Redis ----
 	rdb := redis.NewClient(&redis.Options{
-		Addr: "localhost:6379",
+		Addr: os.Getenv("REDIS_URL"),
 	})
 	if err := rdb.Ping(ctx).Err(); err != nil {
 		log.Fatal("Redis unreachable:", err)
@@ -49,7 +49,7 @@ func main() {
 	migration.RunMigrations(db)
 
 	// ---- gRPC server ----
-	lis, err := net.Listen("tcp", ":50051")
+	lis, err := net.Listen("tcp", ":"+os.Getenv("GRPC_PORT"))
 	if err != nil {
 		log.Fatal("Failed to listen:", err)
 	}
@@ -68,7 +68,7 @@ func main() {
 
 	reflection.Register(grpcServer)
 
-	log.Println("gRPC server listening on :50051")
+	log.Println("gRPC server listening on :" + os.Getenv("GRPC_PORT"))
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatal("Server error:", err)
 	}
