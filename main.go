@@ -21,7 +21,7 @@ import (
 func main() {
 	ctx := context.Background()
 	if os.Getenv("APP_ENV") != "production" {
-		err := godotenv.Load("../../.env")
+		err := godotenv.Load("./.env")
 		if err != nil {
 			fmt.Println("No .env file present")
 		}
