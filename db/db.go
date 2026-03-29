@@ -19,7 +19,7 @@ func InitDB() *sql.DB {
 		log.Fatal("Unable to connect to Database")
 	}
 	if err := db.Ping(); err != nil {
-		log.Fatal("Database unreachable")
+		log.Fatal("Database unreachable", err)
 	}
 	return db
 }
