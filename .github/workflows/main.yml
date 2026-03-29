@@ -116,12 +116,11 @@ jobs:
             DB_URL=${{ secrets.DB_URL }}
             API_URL=${{ secrets.API_URL }}
             REDIS_URL=redis://redis:6379
-            GRPC_PORT=${{ secrets.GRPC_PORT }}
             APP_ENV=production
             EOF
 
             # Run Go container on the same network
-            docker run -d -p {{ secrets.GRPC_PORT }}:{{ secrets.GRPC_PORT }} \
+            docker run -d -p 8080:8080 \
               --name url-shortener \
               --network url-shortener-net \
               --restart always \
