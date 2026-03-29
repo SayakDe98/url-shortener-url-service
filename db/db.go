@@ -10,7 +10,7 @@ import (
 
 func InitDB() *sql.DB {
 	var db *sql.DB
-
+	// get DB_URL from env
 	dsn := os.Getenv("DB_URL")
 
 	db, err := sql.Open("mysql", dsn)
